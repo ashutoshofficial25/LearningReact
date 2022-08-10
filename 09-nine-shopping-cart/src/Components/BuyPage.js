@@ -5,12 +5,17 @@ import { faker } from "@faker-js/faker";
 // import { random, commerce } from "faker";
 import { Container, Col, Row } from "reactstrap";
 
+//Api-KEY for pexels
 const apiKey = "563492ad6f91700001000001fce275a7930c4663918b65050818453f";
 const url = "https://api.pexels.com/v1/search?query=laptop&per_page=6&page=1";
 const localUrl = "http://myjson.dit.upm.es/api/bins/5mxw";
 
 const BuyPage = ({ addInCart }) => {
-  const [product, serProduct] = useState([]);
+  const [product, setProduct] = useState([]);
+
+  // const data = fs.readFileSync("./pexels.json", "utf-8");
+
+  const getJsonData = async () => {};
 
   const youtubeApi = "AIzaSyDiHAnGOBChWC_gkhDsMk2IFKUW8ROdxJM";
   const getYoutubeData = async () => {
@@ -46,7 +51,7 @@ const BuyPage = ({ addInCart }) => {
       id: faker.random.uuid,
     }));
 
-    serProduct(allProducts);
+    setProduct(allProducts);
   };
   useEffect(() => {
     fetchPhotos();
