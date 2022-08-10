@@ -7,9 +7,10 @@ import AddIcon from "@mui/icons-material/Add";
 
 const Homepage = () => {
   const [count, setCount] = useState(0);
-  let card = [];
+
+  let temp = [];
   const addNewCard = () => {
-    card.push(content());
+    temp.push(content());
     console.log(content);
   };
 
@@ -27,8 +28,8 @@ const Homepage = () => {
         <h2>Homepage</h2>
         <div>{count}</div> <AddIcon onClick={() => setCount(count + 1)} />
       </Box>
-      {console.log(card)}
-      {card}
+      {console.log(temp)}
+      {temp}
       <Grid container>
         <Grid item spacing={3}>
           <TodoCard addNewCard={addNewCard} />
