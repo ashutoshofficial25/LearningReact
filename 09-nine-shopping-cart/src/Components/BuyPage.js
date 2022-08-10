@@ -12,12 +12,25 @@ const localUrl = "http://myjson.dit.upm.es/api/bins/5mxw";
 const BuyPage = ({ addInCart }) => {
   const [product, serProduct] = useState([]);
 
+  const youtubeApi = "AIzaSyDiHAnGOBChWC_gkhDsMk2IFKUW8ROdxJM";
+  const getYoutubeData = async () => {
+    const response = await axios.get(
+      `https://youtube.googleapis.com/youtube/v3/search?key=${youtubeApi}`,
+      {
+        Authorization: youtubeApi,
+        Accept: "application/json",
+      }
+    );
+    console.log("res:", response);
+  };
+
   const fetchPhotos = async () => {
     const response = await axios.get(url, {
-      header: {
+      headers: {
         Authorization: apiKey,
       },
     });
+    console.log(response);
   };
 
   const fetchLocalPhotos = async () => {
@@ -25,7 +38,6 @@ const BuyPage = ({ addInCart }) => {
 
     const { photos } = data;
 
-    console.log(photos);
     const allProducts = photos.map((photo) => ({
       smallImage: photo.src.medium,
       tinyImage: photo.src.tiny,
@@ -37,8 +49,9 @@ const BuyPage = ({ addInCart }) => {
     serProduct(allProducts);
   };
   useEffect(() => {
-    // fetchPhotos();
+    fetchPhotos();
     fetchLocalPhotos();
+    getYoutubeData();
   }, []);
 
   return (
