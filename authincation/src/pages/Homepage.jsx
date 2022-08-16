@@ -1,40 +1,36 @@
-import { Container, Grid } from "@mui/material";
+import {
+  Button,
+  Card,
+  CardContent,
+  CardHeader,
+  Container,
+  Divider,
+  Grid,
+} from "@mui/material";
 import { Box } from "@mui/system";
 import React, { useState } from "react";
-import AddCard from "../components/AddCard";
 import TodoCard from "../components/TodoCard";
-import AddIcon from "@mui/icons-material/Add";
 
 const Homepage = () => {
   const [count, setCount] = useState(0);
+  const [card, setCard] = useState([]);
 
-  let temp = [];
-  const addNewCard = () => {
-    temp.push(content());
-    console.log(content);
-  };
-
-  const content = () => {
-    return (
-      <Grid item spacing={3}>
-        <AddCard />
-      </Grid>
-    );
+  const addNewCard = (item) => {
+    setCard([...card, item]);
   };
 
   return (
     <Container>
-      <Box sx={{ backgroundColor: "rgb(0 89 179)" }}>
-        <h2>Homepage</h2>
-        <div>{count}</div> <AddIcon onClick={() => setCount(count + 1)} />
-      </Box>
-      {console.log(temp)}
-      {temp}
-      <Grid container>
-        <Grid item spacing={3}>
-          <TodoCard addNewCard={addNewCard} />
-        </Grid>
-      </Grid>
+      <Card>
+        <Box py={5} textAlign={"center"}>
+          <CardHeader title="Task List" />
+          <Button variant="contained">Add New Task</Button>
+        </Box>
+        <Divider sx={{ border: "1px solid #001122" }} />
+        <CardContent sx={{ backgroundColor: "#103311" }}>
+          <TodoCard />
+        </CardContent>
+      </Card>
     </Container>
   );
 };
