@@ -4,6 +4,7 @@ import axios from "axios";
 import { faker } from "@faker-js/faker";
 // import { random, commerce } from "faker";
 import { Container, Col, Row } from "reactstrap";
+import CartItem from "./CartItem";
 
 //Api-KEY for pexels
 const apiKey = "563492ad6f91700001000001fce275a7930c4663918b65050818453f";
@@ -35,7 +36,17 @@ const BuyPage = ({ addInCart }) => {
         Authorization: apiKey,
       },
     });
-    console.log(response);
+    const { photos } = response;
+
+    const allProducts = photos.map((photo) => ({
+      smallImage: photo.src.medium,
+      tinyImage: photo.src.tiny,
+      productName: faker.random.word(),
+      productPrice: faker.commerce.price(),
+      id: faker.random.uuid,
+    }));
+
+    setProduct(allProducts);
   };
 
   const fetchLocalPhotos = async () => {
@@ -54,9 +65,9 @@ const BuyPage = ({ addInCart }) => {
     setProduct(allProducts);
   };
   useEffect(() => {
-    fetchPhotos();
+    // fetchPhotos();
     fetchLocalPhotos();
-    getYoutubeData();
+    // getYoutubeData();
   }, []);
 
   return (
@@ -64,7 +75,9 @@ const BuyPage = ({ addInCart }) => {
       <h1 className="text-success text-center">BuyPage</h1>
       <Row>
         {product.map((product) => (
-          <span key={product.id}>{product.productName}</span>
+          <Col md={4} key={product.id}>
+            <CartItem product={product} addInCart={addInCart} />{" "}
+          </Col>
         ))}
       </Row>
     </Container>
