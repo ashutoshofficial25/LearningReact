@@ -1,15 +1,7 @@
-import {
-  Button,
-  Card,
-  CardContent,
-  CardHeader,
-  Container,
-  Divider,
-  Grid,
-} from "@mui/material";
-import { Box } from "@mui/system";
 import React, { useState } from "react";
-import TodoCard from "../components/TodoCard";
+import { Container } from "@mui/material";
+
+import TodoPage from "./TodoPage";
 
 const Homepage = () => {
   const [count, setCount] = useState(0);
@@ -21,16 +13,7 @@ const Homepage = () => {
 
   return (
     <Container>
-      <Card>
-        <Box py={5} textAlign={"center"}>
-          <CardHeader title="Task List" />
-          <Button variant="contained">Add New Task</Button>
-        </Box>
-        <Divider sx={{ border: "1px solid #001122" }} />
-        <CardContent sx={{ backgroundColor: "#103311" }}>
-          <TodoCard />
-        </CardContent>
-      </Card>
+      <TodoPage />
     </Container>
   );
 };

@@ -1,7 +1,7 @@
 import { Dialog, DialogContent, DialogTitle } from "@mui/material";
 import { Box } from "@mui/system";
 import React, { Children, useState } from "react";
-import CloseIconButton from "src/components/CloseIconButton";
+import CloseIcon from "@mui/icons-material/Close";
 
 const CustomDialog = ({
   title,
@@ -10,13 +10,8 @@ const CustomDialog = ({
   onClose,
   minHeight,
   children,
+  open,
 }) => {
-  const [open, setOpen] = useState(true);
-
-  //   const handleClose = () => {
-  //     setOpen(false);
-  //   };
-
   return (
     <Dialog
       onClose={onClose}
@@ -33,7 +28,7 @@ const CustomDialog = ({
           }}
         >
           <Box>{title}</Box>
-          <CloseIconButton handleClick={onClose} />
+          <CloseIcon onClick={onClose} sx={{ cursor: "pointer" }} />
         </Box>
       </DialogTitle>
 
