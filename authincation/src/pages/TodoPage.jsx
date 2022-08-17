@@ -18,6 +18,7 @@ const TodoPage = () => {
   const [open, setOpen] = useState(false);
   const [card, setCard] = useState([]);
   const [taskTitle, setTaskTitle] = useState("");
+  const [taskDesc, setTaskDesc] = useState("");
 
   const addNewCard = (item) => {
     setCard([...card, item]);
@@ -25,7 +26,7 @@ const TodoPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(taskTitle);
+    console.log(taskTitle, taskDesc);
   };
 
   const handleClick = () => {
@@ -42,18 +43,26 @@ const TodoPage = () => {
   const content = () => {
     return (
       <form onSubmit={handleSubmit}>
-        <Box
-          px={5}
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-        >
+        <Box px={5} textAlign="center">
           <TextField
+            sx={{ marginBottom: "10px" }}
             label="Enter task Title"
             value={taskTitle}
             onChange={(e) => setTaskTitle(e.target.value)}
+            fullWidth
           />
-
+          <br />
+          <TextField
+            sx={{ marginBottom: "10px" }}
+            label="Enter task description. . ."
+            multiline
+            fullWidth
+            rows={5}
+            value={taskDesc}
+            onChange={(e) => setTaskDesc(e.target.value)}
+            placeholder="Start writing . . ."
+          />
+          <br />
           <Button type="submit" variant="contained" onClick={handleAddTask}>
             Add
           </Button>
@@ -77,7 +86,7 @@ const TodoPage = () => {
             <Grid container spacing={2}>
               {card.map((item) => (
                 <Grid item xs={3}>
-                  <TodoCard title={taskTitle} />
+                  <TodoCard title={taskTitle} taskDesc={taskDesc} />
                 </Grid>
               ))}
             </Grid>

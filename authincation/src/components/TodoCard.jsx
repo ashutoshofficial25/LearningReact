@@ -3,16 +3,14 @@ import {
   Card,
   CardContent,
   CardHeader,
-  Container,
   Divider,
-  Grid,
   TextField,
 } from "@mui/material";
 import React, { useState } from "react";
 import DeleteIcon from "@mui/icons-material/Delete";
 import { red } from "@mui/material/colors";
 
-const TodoCard = ({ title }) => {
+const TodoCard = ({ title, taskDesc }) => {
   const [item, setItem] = useState([]);
 
   return (
@@ -24,9 +22,10 @@ const TodoCard = ({ title }) => {
       <Divider />
       <CardContent>
         <TextField
-          label="Enter task description. . ."
+          label={taskDesc == "" ? "Enter task description. . ." : ""}
           multiline
           rows={5}
+          value={taskDesc}
           placeholder="Start writing . . ."
         />
       </CardContent>
