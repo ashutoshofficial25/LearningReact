@@ -6,6 +6,7 @@ import {
   CardHeader,
   Container,
   Divider,
+  FormControl,
   Grid,
   TextField,
 } from "@mui/material";
@@ -16,17 +17,27 @@ import TodoCard from "../components/TodoCard";
 
 const TodoPage = () => {
   const [open, setOpen] = useState(false);
-  const [card, setCard] = useState([]);
   const [taskTitle, setTaskTitle] = useState("");
   const [taskDesc, setTaskDesc] = useState("");
+  const [card, setCard] = useState([{}]);
+  const [input, setInput] = useState({
+    taskTitle: "",
+    taskDesc: "",
+  });
 
-  const addNewCard = (item) => {
-    setCard([...card, item]);
+  // const addNewCard = (item) => {
+  //   setCard([...card, item]);
+  // };
+  const handleChange = (e) => {
+    e.preventDefault();
+    const taskTitle = e.target.taskTitle;
+    const taskDesc = e.target.taskDesc;
+    setInput({ ...input, taskTitle, taskDesc });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(taskTitle, taskDesc);
+    setCard([...card], input);
   };
 
   const handleClick = () => {
@@ -35,20 +46,23 @@ const TodoPage = () => {
   const handleClose = () => {
     setOpen(false);
   };
-  const handleAddTask = () => {
-    setOpen(false);
-    addNewCard();
-  };
+  // const handleAddTask = () => {
+  //   setOpen(false);
+  //   addNewCard();
+  // };
 
   const content = () => {
     return (
       <form onSubmit={handleSubmit}>
-        <Box px={5} textAlign="center">
+        <FormControl>
           <TextField
+            id="taskTitle"
+            type="text"
             sx={{ marginBottom: "10px" }}
             label="Enter task Title"
-            value={taskTitle}
-            onChange={(e) => setTaskTitle(e.target.value)}
+            name="taskTitle"
+            value={input.taskTitle || ""}
+            onChange={handleChange}
             fullWidth
           />
           <br />
@@ -57,16 +71,24 @@ const TodoPage = () => {
             label="Enter task description. . ."
             multiline
             fullWidth
+            type="text"
+            id="taskDesc"
+            name="taskDesc"
             rows={5}
-            value={taskDesc}
-            onChange={(e) => setTaskDesc(e.target.value)}
+            value={input.taskDesc || ""}
+            onChange={handleChange}
             placeholder="Start writing . . ."
           />
           <br />
-          <Button type="submit" variant="contained" onClick={handleAddTask}>
+          <input type="submit" />
+          <Button
+            // disabled={taskTitle == "" ? true : false}
+            type="submit"
+            variant="contained"
+          >
             Add
           </Button>
-        </Box>
+        </FormControl>
       </form>
     );
   };
@@ -86,7 +108,7 @@ const TodoPage = () => {
             <Grid container spacing={2}>
               {card.map((item) => (
                 <Grid item xs={3}>
-                  <TodoCard title={taskTitle} taskDesc={taskDesc} />
+                  <TodoCard item={item} title={taskTitle} taskDesc={taskDesc} />
                 </Grid>
               ))}
             </Grid>
